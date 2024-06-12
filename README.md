@@ -59,7 +59,6 @@ This class diagram represents the basic structure and functionality of the line-
 ### LOC/h Calculation
 I spent 5 hours on this task and generated 168 lines of code.
 ![LOC count](image-3.png)
-
     ```
     lines = 168 LOC
     time = 5 h

@@ -107,3 +107,6 @@ I spent 5 hours on this task and generated 168 lines of code.
 
 June 12, 2024
 
+## License
+
+This project is licensed under the GNU License - see the [LICENSE.txt](LICENSE.txt) file for details.

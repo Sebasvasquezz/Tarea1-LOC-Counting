@@ -1,10 +1,12 @@
-# Introduction to Maven, GIT, GitHub
+# Task 1 LOC Counting
 
-Introduction to Maven, GIT, GitHub: Learning essential tools for efficient project management and collaboration in software development.
+This Java project provides a utility for counting the number of lines in Java source files, distinguishing between physical lines and lines of code (excluding comments and blank lines). It includes functionality to count lines in individual files or recursively in directories. The program takes command line arguments to specify the type of count (physical or lines of code) and the target directory or file. Unit tests are included to ensure the accuracy of the counting logic.
+
+
 
 ## Getting Started
 Download the project from 
-[the repository.](https://github.com/Sebasvasquezz/Lab1-Intro-Maven-Git-GitHub)
+[the repository.](https://github.com/Sebasvasquezz/Task1-LOC-Counting)
 
 ### Prerequisites
 
@@ -22,87 +24,78 @@ Download the project from
     * Download git in https://git-scm.com/download/win
     * Follow the instructions in https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
-## Deployment
+## Running the tests
 
-### Creating a project
-* Open an operating system shell
-* Go to the directory where you will store this project
-* Run the following commands:
+These tests focus on ensuring the correct functioning of the counting methods for both a file and all files in a directory, using two auxiliary test files (Calculator.java and HelloWorld.java). To delve deeper into the code base of these tests, review the CountLinesTest class.
+
+Once the repository is downloaded, open a command prompt and run the following command to run the unit tests:
+
+```
+mvn test
+```
+The execution:
+
+![Execution of unit tests](image.png)
+
+## Design
+
+### Class Diagram
+The class diagram was made by using Astah. To go deeper into it, check out the LOC-Counting.asta file.
+![Class Diagram](image-1.png)
+* CountLines: Main class that contains the main method to start the program. It also contains methods for counting lines in a directory, in a file, and for counting physical and code lines.
+
+    * main: Main method that handles program execution and accepts command line arguments.
+
+    * countLinesInDirectory: Method to count lines in all files within a directory and its subdirectories. 
+
+    * countLinesInFile: Method to count lines in a specific file.
+
+    * countPhysicalLines: Method to count physical lines in a file and display the file name along with the result.
+
+    * countLinesOfCode: Method to count lines of code in a file and display the file name along with the result.
+
+This class diagram represents the basic structure and functionality of the line-of-code counting system, allowing lines to be counted in both individual files and entire directories.
+
+### LOC/h Calculation
+I spent 5 hours on this task and generated 168 lines of code.
+![LOC count](image-3.png)
 
     ```
-    mvn archetype:generate -DgroupId=edu.escuelaing.arsw.ASE.app -DartifactId=miprimera-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+    lines = 168 LOC
+    time = 5 h
+    LOC/h = 168/5 = 33.6
     ```
-    ```
-    cd mi-primera-app/
-    ```
-* The most important files that were created:
-    * App.java source code:
 
-    ![App.java code](image.png)
-
-    * The pom.xml:
-
-    ![pom.xml](image-1.png)
-
-    * The project coordinates are:
-    ```
-    <groupId>edu.escuelaing.app</groupId>
-    <artifactId>mi-primera-app</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    ```
-### Build the project
+## Build the project
 * Run the comand:
     ```
     mvn package
     ```
 * Run the application:
     ```
-    java -cp target/mi-primera-app-1.0-SNAPSHOT.jar
-    edu.escuelaing.arsw.ASE.app.App
+    mvn exec:java -Dexec.args="<countType> <pathString>" 
+    ```
+    or 
+    ```
+    & 'C:\Program Files\Java\jdk-21\bin\java.exe' '-XX:+ShowCodeDetailsInExceptionMessages' '-cp' 'E:\ARSW\Tarea1\LOC-Counting\target\classes' 'edu.escuelaing.arsw.ASE.app.CountLines' loc E:\ARSW\Tarea1\LOC-Counting\src\main\java\edu\escuelaing\arsw\ASE\app 
     ```
 * And the execution:
-    ```
-    Hello World!
-    ```
+    ![Execition](image-2.png)
 ### Phase architecture
-* To generate the Javadoc as part of the site you must add the javadoc plugin to the
-part of reports in the POM.
-    ```
-    <reporting>
-        <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>2.10.1</version>
-        </plugin>
-        </plugins>
-    </reporting>
-    ```
-* If you want to generate the javadoc as a separate element of the documentation,
-To package it in the JAR you must add the plugin in the build section.
+* To allow running the main application directly from the command line using Maven (mvn exec:java):
     ```
     <build>
-        <plugins>
+    <plugins>
         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>2.10.1</version>
-        </plugin>
-        </plugins>
-    </build>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>3.0.0</version>
+          <configuration>
+              <mainClass>edu.escuelaing.arsw.ASE.app.CountLines</mainClass>
+          </configuration> 
+    </plugins>
+  </build>
     ```
-* Commands to generate reports:
-    ```
-    mvn javadoc:javadoc
-    mvn javadoc:jar
-    mvn javadoc:aggregate
-    mvn javadoc:aggregate-jar
-    mvn javadoc:test-javadoc
-    mvn javadoc:test-jar
-    mvn javadoc:test-aggregate
-    mvn javadoc:test-aggregate-jar
-    ```
-* This generates the javadocs and packages them with the Jar.
 ## Built With
 
 * [Maven](https://maven.apache.org/) - Dependency Management
@@ -111,7 +104,7 @@ To package it in the JAR you must add the plugin in the build section.
 
 * **Juan Sebastian Vasquez Vega**  - [Sebasvasquezz](https://github.com/Sebasvasquezz)
 
-## License
+## Date
 
-This project is licensed under the GNU License - see the [LICENSE.md](LICENSE.md) file for details.
+June 12, 2024
 
